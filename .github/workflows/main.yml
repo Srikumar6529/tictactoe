@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to latest version
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,11 +19,17 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r backend/requirements.txt
-          pip install pytest
+          # We'll check if the code has syntax errors
+          python -m py_compile backend/main.py
 
-      # This is where you'd run tests if you have them!
-      - name: Run Tests
-        run: echo "Running logic tests..."
-
-      - name: Build Docker Image
+      - name: Build Docker Images
         run: docker-compose build
+
+      # SMOKE TEST: Verify the backend container actually runs
+      - name: Verify Backend Container
+        run: |
+          docker compose up -d backend
+          sleep 10 # Give FastAPI a moment to wake up
+          docker ps | grep backend
+          docker compose logs backend
+          docker compose down
