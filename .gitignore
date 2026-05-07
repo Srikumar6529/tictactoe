@@ -1,0 +1,26 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+build/
+dist/
+*.egg-info/
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# --- Docker ---
+# Optional: ignore local data volumes if you create them
+docker-data/
+
+# --- Frontend ---
+# If you eventually use npm/node
+node_modules/
+.eslintcache

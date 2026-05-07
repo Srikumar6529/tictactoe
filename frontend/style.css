@@ -1,0 +1,34 @@
+.cell {
+  aspect-ratio: 1 / 1; /* Makes the buttons square */
+  background-color: white;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.4s ease, transform 0.2s ease;
+}
+
+#game-box{
+    display: grid;
+    /* This creates 3 columns of equal size */
+    grid-template-columns: repeat(3, 1fr);
+    /* The gap creates the "lines" of the board */
+    gap: 5px;
+    width: 300px;
+    margin: 20px auto;
+    background-color: #333; /* Color of the lines */
+    border: 5px solid #333;
+}
+
+/* Make the symbol pop in slightly */
+.cell:not(:empty) {
+  animation: appear 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}

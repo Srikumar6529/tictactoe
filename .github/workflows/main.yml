@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r backend/requirements.txt
+          pip install pytest
+
+      # This is where you'd run tests if you have them!
+      - name: Run Tests
+        run: echo "Running logic tests..."
+
+      - name: Build Docker Image
+        run: docker-compose build
