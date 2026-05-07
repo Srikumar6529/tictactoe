@@ -3,7 +3,20 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import random
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
 app = FastAPI()
+
+# 1. Mount the frontend directory
+# This makes everything in /frontend available at your URL
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+# 2. Serve the index.html at the root URL
+@app.get("/")
+async def read_index():
+    return FileResponse(os.path.join("frontend", "index.html"))
 
 # IMPORTANT: This allows your HTML/JS file to talk to this Python server
 app.add_middleware(
