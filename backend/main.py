@@ -7,6 +7,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
+from ai import best_move
+
 app = FastAPI()
 
 # 1. Mount the frontend directory
@@ -41,5 +43,5 @@ async def get_move(data: BoardState):
         return {"move": None, "status": "draw"}
 
     # Computer picks a move
-    computer_move = random.choice(empty_indices)
+    computer_move = best_move(board)
     return {"move": computer_move}
